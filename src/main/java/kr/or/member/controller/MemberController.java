@@ -15,4 +15,9 @@ public class MemberController {
 	public String signFrm() {
 		return "member/signUpFrm";
 	}
+	
+	@RequestMapping(value="/memberjoinFrm.do")
+	public String memberJoin() {
+		return "member/memberJoin";
+	}
 }
