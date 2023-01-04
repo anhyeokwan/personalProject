@@ -1,0 +1,75 @@
+body{
+    margin: 0px;
+}
+
+.header{
+    background-color: antiquewhite;
+    width: 100%;
+    height: 80px;
+    margin: 0 auto;
+}
+
+.footer{
+    background-color: bisque;
+    width: 100%;
+    height: 300px;
+    margin: 0 auto;
+    margin-top: 100px;
+}
+
+.join-title>h1{
+    text-align: center;
+}
+
+.join-content{
+    width: 1200px;
+    margin: 0 auto;
+    margin-top: 50px;
+}
+
+table tr{
+    height: 100px;
+}
+
+table tr>td>div{
+    height: 20px;
+    width: 400px;
+    /* background-color: antiquewhite; */
+    font-size: 13px;
+}
+
+table tr>td>span:last-child{
+    font-size: 11px;
+}
+
+table tr:last-child>td{
+    text-align: center;
+}
+
+.w3-yellow{
+    margin-left: 10px;
+}
+
+.w3-white{
+    margin-right: 10px;
+}
+
+.emailTd{
+    position: relative;
+}
+
+.emailTd>button{
+    position: absolute;
+    top: 40px;
+    right: 0px;
+}
+
+.idTd{
+    position: relative;
+}
+
+.idTd>button{
+    position: absolute;
+    top: 29px;
+    right: 0px;
+}
