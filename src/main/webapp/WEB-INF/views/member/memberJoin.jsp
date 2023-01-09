@@ -112,7 +112,7 @@
                         	<div class="authComment"></div>
                             <input class="w3-input w3-border" type="text" name="memberAuth" style="width:200px;">
                				<div class="timeOut"><span class="min">3</span> : <span class="sec">00</span></div>
-               				<button class="w3-button w3-yellow" type="button" style="width: 100px!important;" id="authBtn" onclick="authGo();">인증하기</button>
+               				<button class="w3-button w3-yellow" type="button" style="width: 100px!important;" id="authBtnMan" onclick="authGo();">인증하기</button>
                				
                         </td>
                     </tr>
@@ -253,7 +253,7 @@
 		        $(".pwComment").text("비밀번호 설명을 확인해주세요.");
 		        $(".pwComment").css("color", "red");
 		        pwChk = false;
-		        $("")
+		        
 		    }
 		});
 	
@@ -309,25 +309,25 @@
 		    
 		    if(!idChk){
 		        alert("아이디를 확인해주세요.");
-		        $(".joinBtn").attr("type", "button");
+		        $("#joinBtn").attr("type", "button");
 		    }else if(!pwChk){
 		        alert(" 비밀번호를 확인해주세요.");
-		        $(".joinBtn").attr("type", "button");
+		        $("#joinBtn").attr("type", "button");
 		    }else if(!pwReChk){
 		        alert("비밀번호가 일치하는지 확인해주세요.");
-		        $(".joinBtn").attr("type", "button");
+		        $("#joinBtn").attr("type", "button");
 		    }else if(!phoneChk){
 		        alert("전화번호를 확인하세요.");
-		        $(".joinBtn").attr("type", "button");
+		        $("#joinBtn").attr("type", "button");
 		    }else if(!emailChk){
 		        alert("이메일을 확인하세요.");
-		        $(".joinBtn").attr("type", "button");
+		        $("#joinBtn").attr("type", "button");
 		    }else if(!authChk){
 		    	alert("인증번호를 확인하세요.");
-		        $(".joinBtn").attr("type", "button");
+		        $("#joinBtn").attr("type", "button");
 		    }else{
 		        console.log(1);
-		        $(".joinBtn").submit();
+		        $("#joinBtn").attr("type", "submit");
 		    }
 		});
 		

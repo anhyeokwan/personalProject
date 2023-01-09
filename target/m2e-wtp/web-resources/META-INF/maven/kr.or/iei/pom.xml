@@ -22,11 +22,12 @@
 		    <version>2.13.3</version>
 		</dependency>
 	
-		<!-- spring-websocket -->
+		<!-- WebSocket 사용을 위한 라이브러리 2개 (spring-websocket, jackson-databind) -->
+		<!-- spring-websocket --><!-- websocket 버전도 spring 버전이랑 밪아야함 -->
 		<dependency>
-		    <groupId>org.springframework</groupId>
-		    <artifactId>spring-websocket</artifactId>
-		    <version>5.3.18</version>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-websocket</artifactId>
+			<version>5.0.6.RELEASE</version>
 		</dependency>
 		
 		<!-- javax.mail -->
