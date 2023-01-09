@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="member">
+  <select id="selectIdCheck" parameterType="string" resultType="member">
+  	select 
+  		member_no as memberNo,
+  		member_id as memberId,
+  		member_pw as memberPw,
+  		member_name as memberName,
+  		member_phone as memberPhone,
+  		member_type as memberType,
+  		member_email as memberEmail
+  	from member where member_id = #{_parameter}
+  </select>
+  
+  <insert id="joinMember" parameterType="member">
+  	insert into member
+  	values(member_seq.nextval, #{memberId}, #{memberPw}, #{memberName}, #{memberPhone}, 'o', #{memberEmail})
+  </insert>
+</mapper>

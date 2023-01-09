@@ -9,17 +9,48 @@
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<style type="text/css">
+	.emailAuthTr>td{
+		position: relative;
+	}
+	
+	.emailAuthTr>td>.timeOut{
+		position: absolute;
+		top: 45px;
+		right: 40px;
+		text-align: right;
+		width: 100px;
+	}
+	
+	.emailAuthTr>td>#authBtn{
+		position: absolute;
+		top: 40px;
+		right: 100px;
+	}
+	
+	.timeOut>span{
+		font-size: 18px;
+	}
+	
+	.memberJoin-wrap{
+		margin-top: 200px;
+	}
+</style>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
+	
+	<form action="/idMultipleChk.do" name="idChk">
+		<input type="hidden" name="idMulti">
+	</form>
 	
 	<div class="memberJoin-wrap">
         <div class="join-title">
             <h1>일반 사용자 회원가입</h1>
         </div>
-
+		
         <div class="join-content">
-            <form action="">
+            <form action="/insertMember.do" method="post">
                 <table style="width: 500px; margin: 0 auto;">
                     <tr>
                         <th>아이디</th>
@@ -27,7 +58,7 @@
                             <div class="idChk"></div>
                             <input class="w3-input w3-border" type="text" name="memberId" style="width: 300px!important;">
                             <span style="font-size: 11px;">영어 소문자 또는 대문자 9-12글자를 입력하세요.</span>
-                            <button class="w3-button w3-yellow" type="button" style="width: 100px!important;">중복확인</button>
+                            <button class="w3-button w3-yellow" type="button" style="width: 100px!important;" onclick="idMultiple();" id="multi">중복확인</button>
                         </td>
                     </tr>
 
@@ -71,14 +102,18 @@
                         <td class="emailTd">
                             <div class="emailComment"></div>
                             <input class="w3-input w3-border" type="text" name="memberEmail" style="width: 300px!important;">
-                            <button class="w3-button w3-yellow" type="button" style="width: 100px!important;">인증보내기</button>
+                            <button class="w3-button w3-yellow" type="button" style="width: 100px!important;" id="authBtn">인증보내기</button>
                         </td>
                     </tr>
 
-                    <tr style="display: none;">
-                        <th>인증번호</th>
+                    <tr class="emailAuthTr" style="display: none;">
+                        <th style="padding-top: 20px;">인증하기</th>
                         <td>
-                            <input class="w3-input w3-border" type="text" name="memberAuth">
+                        	<div class="authComment"></div>
+                            <input class="w3-input w3-border" type="text" name="memberAuth" style="width:200px;">
+               				<div class="timeOut"><span class="min">3</span> : <span class="sec">00</span></div>
+               				<button class="w3-button w3-yellow" type="button" style="width: 100px!important;" id="authBtn" onclick="authGo();">인증하기</button>
+               				
                         </td>
                     </tr>
 
@@ -98,6 +133,76 @@
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 	
 	<script type="text/javascript">
+		let mailVal;
+		$("#authBtn").on("click", function(){
+			console.log("열려라!");
+			const email = $("[name=memberEmail]").val();
+			$.ajax({
+				url : "/mailSend.do",
+				type : "POST",
+				data : {memberEmail : email},
+				success : function(data){
+					$(".emailAuthTr").slideDown();
+					console.log(data);
+					mailVal = data;
+					authTime();
+				}
+			});
+			
+		});
+		
+		
+		let intervalTime;
+		function authTime(){
+			inttervalTime = window.setInterval(function(){
+				timeCount();
+			}, 1000);
+		}
+		
+		
+		function timeCount(){
+			const min = Number($(".min").text());
+			const sec = $(".sec").text();
+			const authComment = $(".authComment");
+			
+			if(sec == "00"){
+				if(min == 0){
+					mailVal = null;
+					$(".timeOut")
+					authComment.text("느려.");
+					authComment.css("color", "red");
+				}else{
+					$(".min").text(min-1);
+					console.log($(".min").text(min-1));
+					$(".sec").text(59);
+				}
+			}else{
+				const newSec = Number($(".sec").text())-1; // interval이 될때마다 -1
+				
+				if(newSec < 10){
+					$(".sec").text("0" + newSec);
+				}else{
+					$(".sec").text(newSec);
+				}
+			}
+		}
+		
+		let authChk;
+		function authGo(){
+			const mailAuth = $("input[name=memberAuth]").val();
+			
+			if(mailVal == mailAuth){
+				$(".authComment").text("인증되었습니다.");
+				$(".authComment").css("color", "blue");
+				clearInterval(intervalTime);
+				authChk = true;
+			}else{
+				$(".authComment").text("인증번호를 다시 확인해주세요.");
+				$(".authComment").css("color", "red");
+				authChk = false;
+			}
+		}
+	
 		let idChk = false;
 		$("input[name=memberId]").keyup(function(){
 		      // 영어 소/대문자 + 숫자 6~20글자
@@ -108,12 +213,31 @@
 		        $(".idChk").text("사용가능한 아이디입니다.");
 		        $(".idChk").css("color", "blue");
 		        idChk = true;
+		        $("#multi").attr("onclick", "idMultiple()");
 		    }else{
 		        $(".idChk").text("ID설명을 확인해주세요.")
 		        $(".idChk").css("color", "red");
 		        idChk = false;
+		        $("#multi").removeAttr("onclick", "idMultiple()");
 		    }
 		});
+		
+		function idMultiple(){
+			const memberId = $("input[name=memberId]").val();
+			
+			if(memberId == ""){
+				$(".idChk").text("아이디를 입력하세요.");
+				$(".idChk").css("color", "red");
+				return false;
+			}else{
+				$("input[name=idMulti]").val(memberId);
+				const popUp = window.open("", "idChk", "width=700px, height=800px, menubar=no, scrollbars=no");
+				
+				// popup으로 값을 넘겨주는 코드 (form의 name과 attr의 value값이 같아야함) (아마 팜업 idChk이부분도 같아야함)
+				$("[name=idChk]").attr("target", "idChk");
+				$("[name=idChk]").submit();
+			}
+		}
 	
 		let pwChk = false;
 		$("input[name=memberPw]").keyup(function(){
@@ -129,6 +253,7 @@
 		        $(".pwComment").text("비밀번호 설명을 확인해주세요.");
 		        $(".pwComment").css("color", "red");
 		        pwChk = false;
+		        $("")
 		    }
 		});
 	
@@ -197,11 +322,15 @@
 		    }else if(!emailChk){
 		        alert("이메일을 확인하세요.");
 		        $(".joinBtn").attr("type", "button");
+		    }else if(!authChk){
+		    	alert("인증번호를 확인하세요.");
+		        $(".joinBtn").attr("type", "button");
 		    }else{
 		        console.log(1);
-		        $(".joinBtn").attr("type", "button");
+		        $(".joinBtn").submit();
 		    }
 		});
+		
 	</script>
 </body>
 </html>
