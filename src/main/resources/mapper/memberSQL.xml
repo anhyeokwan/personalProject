@@ -17,4 +17,16 @@
   	insert into member
   	values(member_seq.nextval, #{memberId}, #{memberPw}, #{memberName}, #{memberPhone}, 'o', #{memberEmail})
   </insert>
+  
+  <select id="selectOneMember" parameterType="member" resultType="member">
+  	select 
+  		member_no as memberNo,
+  		member_id as memberId,
+  		member_pw as memberPw,
+  		member_name as memberName,
+  		member_phone as memberPhone,
+  		member_type as memberType,
+  		member_email as memberEmail
+  	from member where member_id = #{memberId} and member_pw = #{memberPw}
+  </select>
 </mapper>

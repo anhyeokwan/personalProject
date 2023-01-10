@@ -24,4 +24,9 @@ public class MemberDao {
 		int result = sqlSession.insert("member.joinMember", member);
 		return result;
 	}
+
+	public Member loginMember(Member member) {
+		Member m = sqlSession.selectOne("member.selectOneMember", member);
+		return m;
+	}
 }

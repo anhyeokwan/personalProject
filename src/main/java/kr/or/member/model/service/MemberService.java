@@ -26,4 +26,9 @@ public class MemberService {
 		int result = dao.joinMember(member);
 		return result;
 	}
+
+	public Member loginMember(Member member) {
+		Member m = dao.loginMember(member);
+		return m;
+	}
 }
