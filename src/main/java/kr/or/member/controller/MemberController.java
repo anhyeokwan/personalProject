@@ -73,11 +73,17 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value = "/memberLogin.do")
-	public String memberLogin(Member member, HttpSession session) {
+	public String memberLogin(Member member, HttpSession session, Model model) {
 		Member m = service.loginMember(member);
-		session.setAttribute("member", m);
 		
-		return "redirect:/";
+		if(m != null) {
+			session.setAttribute("member", m);
+			return "redirect:/";
+		}else {
+			model.addAttribute("msg", "아이디 또는 비밀번호를 확인하세요");
+			return "member/loginFrm";
+		}
+		
 	}
 	
 	@RequestMapping(value="/logout.do")

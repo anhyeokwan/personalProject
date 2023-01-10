@@ -61,6 +61,10 @@
                     </form>
                 </div>
             </div>
+            
+            <div class="errorMsg" style="text-align: center; margin-top: 30px;">
+            	<p style="color: red;">${msg }</p>
+            </div>
         </div>
     </div>
 	
