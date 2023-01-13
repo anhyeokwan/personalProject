@@ -26,7 +26,7 @@
                 <p>일반 회원가입</p>
             </a>
 
-            <a href="#">
+            <a href="/ownerFrm.do">
                 <div>
                     <img src="/resources/img/팬션 사장님.png" alt="">
                 </div>
