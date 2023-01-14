@@ -22,10 +22,10 @@ public class MemberService {
 		
 		// 일반회원 객체
 		Member member = dao.selectIdCheck(memberId);
-		
+		System.out.println(member);
 		// 팬션 사장짐 조회
 		Owner owner = dao.selectOwnerIdCheck(memberId);
-		
+		System.out.println(owner);
 		map.put("member", member);
 		map.put("owner", owner);
 		

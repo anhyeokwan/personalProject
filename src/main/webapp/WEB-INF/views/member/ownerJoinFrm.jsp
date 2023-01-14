@@ -250,6 +250,33 @@
 				$("[name=idChk]").submit();
 			}
 		}
+		
+		/*
+		let multiChk;
+		$("input[name=ownerId]").change(function(){
+			const idVal = $("input[name=ownerId]").val();
+			if(idChk){
+				$.ajax({
+					url : "/ajaxIdCheck.do",
+					type : "get",
+					data : {idChk : idVal},
+					success : function(data){
+						console.log(data);
+						if(data == "1"){
+							$(".idChk").text("사용가능한 아이디입니다.(아이디 중복)");
+					        $(".idChk").css("color", "blue");
+					        multiChk = true;
+						}else if(data == "0-1"){
+							$(".idChk").text("중복된 아이디 입니다.");
+					        $(".idChk").css("color", "red");
+					        multiChk = false;
+						}
+					}
+				})
+			}
+			
+		});
+		*/
 	
 		let pwChk = false;
 		$("input[name=ownerPw]").keyup(function(){

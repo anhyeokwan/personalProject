@@ -81,7 +81,7 @@
                     </tr>
 
                     <tr>
-                        <th style="padding-top: 20px;">이름</th>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   px;">이름</th>
+                        <th style="padding-top: 20px;">이름</th>
                         <td>
                             <div></div>
                             <input class="w3-input w3-border" type="text" name="memberName">
@@ -203,7 +203,7 @@
 			}
 		}
 	
-		let idChk = false;
+		let idChk;
 		$("input[name=memberId]").keyup(function(){
 		      // 영어 소/대문자 + 숫자 6~20글자
 		    const idReg = /^[a-zA-Z0-9]{9,12}$/;
@@ -214,6 +214,7 @@
 		        $(".idChk").css("color", "blue");
 		        idChk = true;
 		        $("#multi").attr("onclick", "idMultiple()");
+		        
 		    }else{
 		        $(".idChk").text("ID설명을 확인해주세요.")
 		        $(".idChk").css("color", "red");
@@ -238,6 +239,33 @@
 				$("[name=idChk]").submit();
 			}
 		}
+		
+		
+		let multiChk;
+			$("input[name=memberId]").change(function(){
+				const idVal = $("input[name=memberId]").val();
+				if(idChk){
+					$.ajax({
+						url : "/ajaxIdCheck.do",
+						type : "get",
+						data : {idChk : idVal},
+						success : function(data){
+							console.log(data);
+							if(data == "1"){
+								$(".idChk").text("사용가능한 아이디입니다.(아이디 중복)");
+						        $(".idChk").css("color", "blue");
+						        multiChk = true;
+							}else if(data == "0"){
+								$(".idChk").text("중복된 아이디 입니다.");
+						        $(".idChk").css("color", "red");
+						        multiChk = false;
+							}
+						}
+					})
+				}
+				
+			});
+		
 	
 		let pwChk = false;
 		$("input[name=memberPw]").keyup(function(){
@@ -309,6 +337,9 @@
 		    
 		    if(!idChk){
 		        alert("아이디를 확인해주세요.");
+		        $("#joinBtn").attr("type", "button");
+		    }else if(!multiChk){
+		        alert("아이디중복을 확인해주세요.");
 		        $("#joinBtn").attr("type", "button");
 		    }else if(!pwChk){
 		        alert(" 비밀번호를 확인해주세요.");

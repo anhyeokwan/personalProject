@@ -12,29 +12,32 @@
 <body>
 	<h1>아이디 중복검사</h1>
 	<c:choose>
-		<c:when test="${empty member && empty owner}">
+		<c:when test="${result }">
 			<p>[${checkId }]는 사용 가능합니다.</p>
 			<input type="hidden" name="possibleId" value="${checkId }">
 			<button class="w3-button w3-yellow" onclick="closeBtn();">닫기</button>
 		</c:when>
 		
-		<c:when test="${empty member }">
-			<p>[${checkId }]는 사용 불가능합니다.</p>
-			<form action="/idMultipleChk.do" method="post">
-				<div class="idChk"></div>
-				<input class="w3-input w3-border" type="text" name="idMulti">
-				<button class="w3-button w3-yellow">조회</button>
-			</form>
-		</c:when>
-		
 		<c:otherwise>
-			<p>[${checkId }]는 사용 불가능합니다.</p>
-			<form action="/idMultipleChk.do" method="post">
-				<div class="idChk"></div>
-				<input class="w3-input w3-border" type="text" name="idMulti">
-				<button class="w3-button w3-yellow">조회</button>
-			</form>
+			<c:when test="${not empty member}"> <!-- member아이디가 중복되었을 때 -->
+				<p>[${checkId }]는 사용 불가능합니다.</p>
+				<form action="/idMultipleChk.do" method="post">
+					<div class="idChk"></div>
+					<input class="w3-input w3-border" type="text" name="idMulti">
+					<button class="w3-button w3-yellow">조회</button>
+				</form>
+			</c:when>
+			
+			<c:when test="${not empty owner}"> <!-- owner아이디가 중복되었을 때 -->
+				<p>[${checkId }]는 사용 불가능합니다.</p>
+				<form action="/idMultipleChk.do" method="post">
+					<div class="idChk"></div>
+					<input class="w3-input w3-border" type="text" name="idMulti">
+					<button class="w3-button w3-yellow">조회</button>
+				</form>
+			</c:when>
 		</c:otherwise>
+		
 	</c:choose>
 	
 	<script type="text/javascript">

@@ -51,12 +51,15 @@ public class MemberController {
 		HashMap<String, Object> member = service.selectIdCheck(idMulti);
 		
 		if(member == null) {
+			model.addAttribute("result", true);
 			model.addAttribute("checkId", idMulti);
 			
 		}else if(member.get("member") != null) {
+			model.addAttribute("result", false);
 			model.addAttribute("checkId", idMulti);
 			model.addAttribute("member", (Member)member.get("member"));
 		}else if(member.get("owner") != null) {
+			model.addAttribute("result", false);
 			model.addAttribute("checkId", idMulti);
 			model.addAttribute("member", (Owner)member.get("owner"));
 		}
@@ -95,6 +98,20 @@ public class MemberController {
 	public String logout(HttpSession session) {
 		session.invalidate();
 		return "redirect:/";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/ajaxIdCheck.do", produces = "application/json;charset=utf-8")
+	public String ajaxIdCheck(String idChk) {
+		HashMap<String, Object> map = service.selectIdCheck(idChk);
+		
+		if(map == null) {
+			return "1";
+		}else if(map.get("member") != null) {
+			return "0";
+		}else {
+			return "0-1";
+		}
 	}
 }
 
