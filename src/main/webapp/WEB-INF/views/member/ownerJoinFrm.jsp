@@ -35,6 +35,10 @@
 	.memberJoin-wrap{
 		margin-top: 200px;
 	}
+	
+	table th{
+		text-align: center;
+	}
 </style>
 </head>
 <body>
@@ -105,6 +109,14 @@
                             <button class="w3-button w3-yellow" type="button" style="width: 100px!important;" id="authBtn">인증보내기</button>
                         </td>
                     </tr>
+                    
+                    <tr>
+                        <th style="padding-top: 20px;">사업자번호</th>
+                        <td class="emailTd">
+                            <div class="blnComment"></div>
+                            <input class="w3-input w3-border" type="text" name="businessLicenseNo" style="width: 300px!important;">
+                        </td>
+                    </tr>
 
                     <tr class="emailAuthTr" style="display: none;">
                         <th style="padding-top: 20px;">인증하기</th>
@@ -136,11 +148,11 @@
 		let mailVal;
 		$("#authBtn").on("click", function(){
 			console.log("열려라!");
-			const email = $("[name=memberEmail]").val();
+			const email = $("[name=ownerEamil]").val();
 			$.ajax({
 				url : "/mailSend.do",
 				type : "POST",
-				data : {memberEmail : email},
+				data : {email : email},
 				success : function(data){
 					$(".emailAuthTr").slideDown();
 					console.log(data);
@@ -204,10 +216,10 @@
 		}
 	
 		let idChk = false;
-		$("input[name=memberId]").keyup(function(){
+		$("input[name=ownerId]").keyup(function(){
 		      // 영어 소/대문자 + 숫자 6~20글자
 		    const idReg = /^[a-zA-Z0-9]{9,12}$/;
-		    const idVal = $("input[name=memberId]").val();
+		    const idVal = $("input[name=ownerId]").val();
 	
 		    if(idReg.test(idVal)){
 		        $(".idChk").text("사용가능한 아이디입니다.");
@@ -223,7 +235,7 @@
 		});
 		
 		function idMultiple(){
-			const memberId = $("input[name=memberId]").val();
+			const memberId = $("input[name=ownerId]").val();
 			
 			if(memberId == ""){
 				$(".idChk").text("아이디를 입력하세요.");
@@ -240,10 +252,10 @@
 		}
 	
 		let pwChk = false;
-		$("input[name=memberPw]").keyup(function(){
+		$("input[name=ownerPw]").keyup(function(){
 		    //최소 1개의 숫자 혹은 특수 문자를 포함해야 함(9-20)
 		    const pwReg = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[~!@#$%^&*]).{9,20}$/;
-		    const pwVal = $("input[name=memberPw]").val();
+		    const pwVal = $("input[name=ownerPw]").val();
 	
 		    if(pwReg.test(pwVal)){
 		        $(".pwComment").text("사용가능한 비밀번호입니다.");
@@ -258,9 +270,9 @@
 		});
 	
 		let pwReChk = false;
-		$("input[name=memberPwRe]").keyup(function(){
-		    const pw = $("input[name=memberPw]").val();
-		    const pwRe = $("input[name=memberPwRe]").val();
+		$("input[name=ownerPwRe]").keyup(function(){
+		    const pw = $("input[name=ownerPw]").val();
+		    const pwRe = $("input[name=ownerPwRe]").val();
 	
 		    if(pw == pwRe){
 		        $(".pwChkComment").text("비밀번호가 일치합니다.");
@@ -274,9 +286,9 @@
 		})
 	
 		let phoneChk = false;
-		$("input[name=memberPhone]").keyup(function(){
+		$("input[name=ownerPhone]").keyup(function(){
 		    const phoneReg =  /^(01[016789]{1})[0-9]{3,4}[0-9]{4}$/;
-		    const phoneVal = $("input[name=memberPhone]").val();
+		    const phoneVal = $("input[name=ownerPhone]").val();
 	
 		    if(phoneReg.test(phoneVal)){
 		        $(".phoneComment").text("사용가능한 전화번호입니다.");
@@ -290,9 +302,9 @@
 		});
 	
 		let emailChk = false;
-		$("input[name=memberEmail]").keyup(function(){
+		$("input[name=ownerEamil]").keyup(function(){
 		    const emailReg = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
-		    const emailVal = $("input[name=memberEmail]").val();
+		    const emailVal = $("input[name=ownerEamil]").val();
 	
 		    if(emailReg.test(emailVal)){
 		        $(".emailComment").text("알맞은 이메일입니다.");
@@ -303,6 +315,21 @@
 		        $(".emailComment").css("color", "red");
 		        emailChk = false;
 		    }
+		});
+		
+		let blnChk;
+		$("[name=businessLicenseNo]").keyup(function(){
+			const blnVal = $("[name=businessLicenseNo]").val();
+			
+			if(blnVal == ""){
+				$(".blnComment").text("사업자번호를 입력하세요");
+				$(".blnComment").css("color", "red");
+				blnChk = false;
+			}else{
+				$(".blnComment").text("");
+				blnChk = true;
+			}
+			
 		});
 	
 		$("#joinBtn").on("click", function(){
@@ -324,6 +351,9 @@
 		        $("#joinBtn").attr("type", "button");
 		    }else if(!authChk){
 		    	alert("인증번호를 확인하세요.");
+		        $("#joinBtn").attr("type", "button");
+		    }else if(!blnChk){
+		    	alert("사업자번호를 확인하세요.");
 		        $("#joinBtn").attr("type", "button");
 		    }else{
 		        console.log(1);

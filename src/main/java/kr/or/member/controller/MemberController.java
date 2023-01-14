@@ -1,5 +1,7 @@
 package kr.or.member.controller;
 
+import java.util.HashMap;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,7 @@ import com.google.gson.Gson;
 import kr.or.common.MailSend;
 import kr.or.member.model.service.MemberService;
 import kr.or.member.model.vo.Member;
+import kr.or.member.model.vo.Owner;
 
 @Controller
 public class MemberController {
@@ -34,8 +37,8 @@ public class MemberController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/mailSend.do", produces = "application/json;charset=utf-8")
-	public String mailSend(String memberEmail) {
-		String authPW = mailSend.mailSendMethod(memberEmail);
+	public String mailSend(String email) {
+		String authPW = mailSend.mailSendMethod(email);
 		
 		Gson gson = new Gson();
 		String mailAuth = gson.toJson(authPW);
@@ -45,15 +48,17 @@ public class MemberController {
 	
 	@RequestMapping(value="/idMultipleChk.do")
 	public String idCheck(String idMulti, Model model) {
-		Member member = service.selectIdCheck(idMulti);
+		HashMap<String, Object> member = service.selectIdCheck(idMulti);
 		
 		if(member == null) {
 			model.addAttribute("checkId", idMulti);
-			model.addAttribute("member", member);
-		}else {
-			model.addAttribute("member", member);
+			
+		}else if(member.get("member") != null) {
 			model.addAttribute("checkId", idMulti);
-			model.addAttribute("memberId", member.getMemberId());
+			model.addAttribute("member", (Member)member.get("member"));
+		}else if(member.get("owner") != null) {
+			model.addAttribute("checkId", idMulti);
+			model.addAttribute("member", (Owner)member.get("owner"));
 		}
 		
 		return "member/checkId";

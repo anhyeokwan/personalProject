@@ -140,7 +140,7 @@
 			$.ajax({
 				url : "/mailSend.do",
 				type : "POST",
-				data : {memberEmail : email},
+				data : {email : email},
 				success : function(data){
 					$(".emailAuthTr").slideDown();
 					console.log(data);

@@ -29,4 +29,49 @@
   		member_email as memberEmail
   	from member where member_id = #{memberId} and member_pw = #{memberPw}
   </select>
+  
+  <select id="selectOwnerMember" parameterType="string" resultType="owner">
+  	select
+  		owner_no as ownerNo,
+  		owner_id as ownerId,
+  		owner_pw as ownerPw,
+  		owner_name as ownerName,
+  		onwer_phone as ownerPhone,
+  		owner_email as ownerEamil,
+  		owner_type as ownerType,
+  		Business_license_no as businessLicenseNo
+  	from owner where owner_id = #{_parameter}
+  </select>
+  
+  <insert id="insertOwnerMember" parameterType="owner">
+  	insert into owner
+  	values(owner_seq.nextval, #{ownerId}, #{ownerPw}, #{ownerName}, #{ownerPhone}, #{ownerEamil}, 'o', #{businessLicenseNo})
+  </insert>
+  
 </mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

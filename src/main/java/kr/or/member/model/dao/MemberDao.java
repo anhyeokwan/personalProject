@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kr.or.member.model.vo.Member;
+import kr.or.member.model.vo.Owner;
 
 @Repository
 public class MemberDao {
@@ -28,5 +29,16 @@ public class MemberDao {
 	public Member loginMember(Member member) {
 		Member m = sqlSession.selectOne("member.selectOneMember", member);
 		return m;
+	}
+
+	public Owner selectOwnerIdCheck(String memberId) {
+		Owner owner = sqlSession.selectOne("member.selectOwnerMember", memberId);
+		
+		if(owner == null) {
+			return null;
+		}else {
+			return owner;
+		}
+		
 	}
 }
