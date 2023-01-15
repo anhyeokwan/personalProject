@@ -48,20 +48,16 @@ public class MemberController {
 	
 	@RequestMapping(value="/idMultipleChk.do")
 	public String idCheck(String idMulti, Model model) {
-		HashMap<String, Object> member = service.selectIdCheck(idMulti);
+		Member member = service.selectIdCheck(idMulti);
 		
 		if(member == null) {
-			model.addAttribute("result", true);
+			model.addAttribute("result", 0);
 			model.addAttribute("checkId", idMulti);
 			
-		}else if(member.get("member") != null) {
-			model.addAttribute("result", false);
+		}else {
+			model.addAttribute("result", 0);
 			model.addAttribute("checkId", idMulti);
-			model.addAttribute("member", (Member)member.get("member"));
-		}else if(member.get("owner") != null) {
-			model.addAttribute("result", false);
-			model.addAttribute("checkId", idMulti);
-			model.addAttribute("member", (Owner)member.get("owner"));
+			model.addAttribute("member", member);
 		}
 		
 		return "member/checkId";
@@ -103,14 +99,12 @@ public class MemberController {
 	@ResponseBody
 	@RequestMapping(value = "/ajaxIdCheck.do", produces = "application/json;charset=utf-8")
 	public String ajaxIdCheck(String idChk) {
-		HashMap<String, Object> map = service.selectIdCheck(idChk);
+		Member map = service.selectIdCheck(idChk);
 		
 		if(map == null) {
 			return "1";
-		}else if(map.get("member") != null) {
-			return "0";
 		}else {
-			return "0-1";
+			return "0";
 		}
 	}
 }

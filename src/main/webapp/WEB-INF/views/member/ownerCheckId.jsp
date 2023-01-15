@@ -20,7 +20,7 @@
 		
 		<c:otherwise>
 			<p>[${checkId }]는 사용 불가능합니다.</p>
-			<form action="/idMultipleChk.do" method="get">
+			<form action="/idMultipleOnwerChk.do" method="get">
 				<input class="w3-input w3-border" type="text" name="idMulti">
 				<button class="w3-button w3-yellow">조회</button>
 			</form>
@@ -32,7 +32,7 @@
 		function closeBtn(){
 			const possibleId = $("input[name=possibleId]").val();
 			console.log(possibleId);
-			const inputId = $("[name=memberId]", opener.document);
+			const inputId = $("[name=ownerId]", opener.document);
 			inputId.val(possibleId);
 			console.log(inputId);
 			self.close();

@@ -17,4 +17,14 @@ public class OwnerService {
 		int result = dao.insertOwnerMember(owner);
 		return result;
 	}
+
+	public Owner idMultipleOnwerChk(String idMulti) {
+		Owner owner = dao.selectOwnerIdCheck(idMulti);
+
+		if(owner == null) {
+			return null;
+		}else {
+			return owner;
+		}
+	}
 }

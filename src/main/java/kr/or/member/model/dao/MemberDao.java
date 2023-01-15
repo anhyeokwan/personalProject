@@ -31,14 +31,5 @@ public class MemberDao {
 		return m;
 	}
 
-	public Owner selectOwnerIdCheck(String memberId) {
-		Owner owner = sqlSession.selectOne("member.selectOwnerMember", memberId);
-		
-		if(owner == null) {
-			return null;
-		}else {
-			return owner;
-		}
-		
-	}
+	
 }

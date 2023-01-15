@@ -44,7 +44,7 @@
 <body>
 	<jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
 	
-	<form action="/idMultipleChk.do" name="idChk">
+	<form action="/idMultipleOnwerChk.do" name="idChk">
 		<input type="hidden" name="idMulti">
 	</form>
 	
@@ -251,13 +251,14 @@
 			}
 		}
 		
-		/*
+		
 		let multiChk;
 		$("input[name=ownerId]").change(function(){
 			const idVal = $("input[name=ownerId]").val();
 			if(idChk){
+				
 				$.ajax({
-					url : "/ajaxIdCheck.do",
+					url : "/ajaxOwnerIdCheck.do",
 					type : "get",
 					data : {idChk : idVal},
 					success : function(data){
@@ -266,7 +267,7 @@
 							$(".idChk").text("사용가능한 아이디입니다.(아이디 중복)");
 					        $(".idChk").css("color", "blue");
 					        multiChk = true;
-						}else if(data == "0-1"){
+						}else if(data == "0"){
 							$(".idChk").text("중복된 아이디 입니다.");
 					        $(".idChk").css("color", "red");
 					        multiChk = false;
@@ -276,7 +277,7 @@
 			}
 			
 		});
-		*/
+		
 	
 		let pwChk = false;
 		$("input[name=ownerPw]").keyup(function(){

@@ -15,24 +15,15 @@ public class MemberService {
 	@Autowired
 	private MemberDao dao;
 
-	public HashMap<String, Object> selectIdCheck(String memberId) {
-		
-		// return할 hashmap
-		HashMap<String, Object> map = new HashMap<String, Object>();
+	public Member selectIdCheck(String memberId) {
 		
 		// 일반회원 객체
 		Member member = dao.selectIdCheck(memberId);
-		System.out.println(member);
-		// 팬션 사장짐 조회
-		Owner owner = dao.selectOwnerIdCheck(memberId);
-		System.out.println(owner);
-		map.put("member", member);
-		map.put("owner", owner);
 		
-		if(member == null && owner == null) {
+		if(member == null) {
 			return null;
 		}else {
-			return map;
+			return member;
 		}
 	}
 	

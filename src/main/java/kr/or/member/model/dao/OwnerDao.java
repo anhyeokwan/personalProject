@@ -15,4 +15,15 @@ public class OwnerDao {
 		int result = sqlSession.insert("member.insertOwnerMember", owner);
 		return result;
 	}
+
+	public Owner selectOwnerIdCheck(String memberId) {
+		Owner owner = sqlSession.selectOne("member.selectOwnerMember", memberId);
+		
+		if(owner == null) {
+			return null;
+		}else {
+			return owner;
+		}
+		
+	}
 }
