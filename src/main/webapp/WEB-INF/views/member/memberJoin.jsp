@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="/resources/css/memberJoin.css">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    
+<script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js" charset="utf-8"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <style type="text/css">
 	.emailAuthTr>td{
@@ -128,11 +128,33 @@
                 </table>
             </form>
         </div>
+        <hr>
+        
+        <div class="socialFrm">
+        	<div class="social-title">
+        		<h1 style="text-align: center;">소셜 로그인</h1>
+        	</div>
+        	
+        	<div class="social-content">
+        		<div class="naverFrm">
+        			<div id="naverIdLogin" style="text-align: center;"></div>
+        		</div>
+        	</div>
+        </div>
     </div>
 	
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 	
 	<script type="text/javascript">
+		const naverLogin = new naver.LoginWithNaverId(
+				{
+					clientId: "1ePCtXckEFpS2a0uKb2H",
+					callbackUrl: "http://localhost/naverCallback.do",
+					loginButton: {color: "green", type: 2, height: 40}
+				}
+			);
+	 	naverLogin.init(); // 로그인 설정
+	 	
 		let mailVal;
 		$("#authBtn").on("click", function(){
 			console.log("열려라!");

@@ -38,4 +38,30 @@ public class MemberService {
 		Member m = dao.loginMember(member);
 		return m;
 	}
+
+	public int insertNaver(Member member) {
+		Member m = dao.selectOneMember(member);
+		return 0;
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

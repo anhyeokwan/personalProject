@@ -107,6 +107,16 @@ public class MemberController {
 			return "0";
 		}
 	}
+	
+	@RequestMapping(value = "naverCallback.do")
+	public String naverCallback() {
+		return "member/naverCallback";
+	}
+	
+	@RequestMapping(value = "/naverJoin.do")
+	public String naverJoin(Member member) {
+		int result = service.insertNaver(member);
+	}
 }
 
 

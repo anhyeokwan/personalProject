@@ -31,5 +31,10 @@ public class MemberDao {
 		return m;
 	}
 
+	public Member selectOneMember(Member member) {
+		Member m = sqlSession.selectOne("member.selectOneMember", member);
+		return m;
+	}
+
 	
 }
