@@ -5,9 +5,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js" charset="utf-8"></script>
+<script src="https://code.jquery.com/jquery-3.6.1.js"></script>
 </head>
 <body>
-	<form action="/naverJoin.do" method="post">
+	<form action="/naverJoin.do" method="post" id="naverFrm">
 		<input type="hidden" name="memberName">
 		<input type="hidden" name="memberEmail">
 		<input type="hidden" name="memberPhone">

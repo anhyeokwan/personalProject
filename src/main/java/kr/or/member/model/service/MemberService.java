@@ -40,8 +40,14 @@ public class MemberService {
 	}
 
 	public int insertNaver(Member member) {
-		Member m = dao.selectOneMember(member);
-		return 0;
+		Member m = dao.selectNaverMember(member.getMemberEmail());
+		int result = 0;
+		if(m == null) {
+			result = dao.insertNaver(member);
+			return result;
+		}else {
+			return 0;
+		}
 	}
 }
 

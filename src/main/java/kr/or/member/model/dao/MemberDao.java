@@ -31,10 +31,34 @@ public class MemberDao {
 		return m;
 	}
 
-	public Member selectOneMember(Member member) {
-		Member m = sqlSession.selectOne("member.selectOneMember", member);
-		return m;
+	public Member selectNaverMember(String string) {
+		Member m = sqlSession.selectOne("member.selectNaverMember", string);
+		
+		if(m == null) {
+			return null;
+		}else {
+			return m;
+		}
+	}
+
+	public int insertNaver(Member member) {
+		int result = sqlSession.insert("member.insertNamber", member);
+		return result;
 	}
 
 	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+

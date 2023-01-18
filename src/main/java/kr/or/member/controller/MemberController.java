@@ -114,8 +114,15 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value = "/naverJoin.do")
-	public String naverJoin(Member member) {
+	public String naverJoin(Member member, Model model) {
 		int result = service.insertNaver(member);
+		
+		if(result == 0) {
+			model.addAttribute("msg", "이미 있는 이메일입니다.");
+			return "member/memberJoin";
+		}else {
+			return "redirect:/";
+		}
 	}
 }
 

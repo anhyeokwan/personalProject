@@ -140,6 +140,10 @@
         			<div id="naverIdLogin" style="text-align: center;"></div>
         		</div>
         	</div>
+        	
+        	<div class="msgFrm">
+        		<p style="text-align: center;">${msg }</p>
+        	</div>
         </div>
     </div>
 	
