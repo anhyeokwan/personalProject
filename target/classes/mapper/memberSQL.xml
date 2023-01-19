@@ -20,7 +20,7 @@
   
   <insert id="insertNamber" parameterType="member">
   	insert into member
-  	values(memer_seq.nextval, 'null', 'null', #{memberName}, #{memberPhone}, 'n', #{memberEmail})
+  	values(member_seq.nextval, 'null', 'null', #{memberName}, #{memberPhone}, 'n', #{memberEmail})
   </insert>
   
   <select id="selectOneMember" parameterType="member" resultType="member">
@@ -63,6 +63,18 @@
   		member_type as memberType,
   		member_email as memberEmail
   	from member where member_email = #{_parameter}
+  </select>
+  
+  <select id="selectNaverLogin" parameterType="member" resultType="member">
+  	select
+  		member_no as memberNo,
+  		member_id as memberId,
+  		member_pw as memberPw,
+  		member_name as memberName,
+  		member_phone as memberPhone,
+  		member_type as memberType,
+  		member_email as memberEmail
+  	from member where member_email = #{memberEmail} and member_type = 'n'
   </select>
   
   

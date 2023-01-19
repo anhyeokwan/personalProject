@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="/resources/css/loginFrm.css">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js" charset="utf-8"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
@@ -62,6 +63,19 @@
                 </div>
             </div>
             
+            <hr>
+            <div class="socialFrm">
+            	<div class="social-title">
+            		<h3 style="text-align: center;">소셜로그인</h3>
+            	</div>
+            	
+            	<div class="naverFrm">
+	            	<div class="naverFrm">
+	        			<div id="naverIdLogin" style="text-align: center;"></div>
+	        		</div>
+	            </div>
+            </div>
+            
             <div class="errorMsg" style="text-align: center; margin-top: 30px;">
             	<p style="color: red;">${msg }</p>
             </div>
@@ -71,6 +85,15 @@
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 	
 	<script>
+		const naverLogin = new naver.LoginWithNaverId(
+				{
+					clientId: "1ePCtXckEFpS2a0uKb2H",
+					callbackUrl: "http://localhost/naverCallback2.do",
+					loginButton: {color: "green", type: 2, height: 40}
+				}
+			);
+	 	naverLogin.init(); // 로그인 설정
+ 	
         $("#member").on("click", function(){
             console.log("memberLogin");
             $(".ownerFrm").hide();

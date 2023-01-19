@@ -1,5 +1,6 @@
 package kr.or.member.model.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,9 +39,12 @@ public class MemberService {
 		Member m = dao.loginMember(member);
 		return m;
 	}
-
+	
+	@Transactional
 	public int insertNaver(Member member) {
-		Member m = dao.selectNaverMember(member.getMemberEmail());
+		System.out.println("memberEmail : " + member.getMemberEmail());
+		ArrayList<Member> m = dao.selectNaverMember(member.getMemberEmail());
+		System.out.println(m);
 		int result = 0;
 		if(m == null) {
 			result = dao.insertNaver(member);
@@ -48,6 +52,13 @@ public class MemberService {
 		}else {
 			return 0;
 		}
+	}
+
+	public Member selectNaverLogin(Member member) {
+		System.out.println("memberEmail : " + member.getMemberEmail());
+		Member m = dao.selectNaverLogin(member);
+		
+		return m;
 	}
 }
 

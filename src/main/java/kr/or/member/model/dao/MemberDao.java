@@ -1,5 +1,8 @@
 package kr.or.member.model.dao;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -31,19 +34,24 @@ public class MemberDao {
 		return m;
 	}
 
-	public Member selectNaverMember(String string) {
-		Member m = sqlSession.selectOne("member.selectNaverMember", string);
+	public ArrayList<Member> selectNaverMember(String string) {
+		List m = sqlSession.selectList("member.selectNaverMember", string);
 		
-		if(m == null) {
+		if(m.isEmpty()) {
 			return null;
 		}else {
-			return m;
+			return (ArrayList<Member>)m;
 		}
 	}
 
 	public int insertNaver(Member member) {
 		int result = sqlSession.insert("member.insertNamber", member);
 		return result;
+	}
+
+	public Member selectNaverLogin(Member member) {
+		Member m = sqlSession.selectOne("member.selectNaverLogin", member);
+		return m;
 	}
 
 	

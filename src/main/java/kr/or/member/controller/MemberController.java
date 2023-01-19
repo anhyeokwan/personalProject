@@ -113,6 +113,11 @@ public class MemberController {
 		return "member/naverCallback";
 	}
 	
+	@RequestMapping(value = "/naverCallback2.do")
+	public String naverCallback2() {
+		return "member/naverCallback2";
+	}
+	
 	@RequestMapping(value = "/naverJoin.do")
 	public String naverJoin(Member member, Model model) {
 		int result = service.insertNaver(member);
@@ -121,6 +126,19 @@ public class MemberController {
 			model.addAttribute("msg", "이미 있는 이메일입니다.");
 			return "member/memberJoin";
 		}else {
+			return "redirect:/";
+		}
+	}
+	
+	@RequestMapping(value = "/naverLogin.do")
+	public String naverLogin(Member member, HttpSession session, Model model) {
+		Member m = service.selectNaverLogin(member);
+		
+		if(m == null) {
+			model.addAttribute("msg", "일반회원 또는 카카오 이메일이 있는지 확인하세요");
+			return "member/loginFrm";
+		}else {
+			session.setAttribute("member", m);
 			return "redirect:/";
 		}
 	}
