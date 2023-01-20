@@ -126,6 +126,7 @@ public class MemberController {
 			model.addAttribute("msg", "이미 있는 이메일입니다.");
 			return "member/memberJoin";
 		}else {
+			System.out.println("네이버 회원가입 성공!!");
 			return "redirect:/";
 		}
 	}

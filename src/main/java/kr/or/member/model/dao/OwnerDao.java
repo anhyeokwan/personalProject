@@ -1,5 +1,8 @@
 package kr.or.member.model.dao;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -26,4 +29,40 @@ public class OwnerDao {
 		}
 		
 	}
+
+	public ArrayList<Owner> selectOwnerList(Owner owner) {
+		List list = sqlSession.selectList("member.selectOwnerList", owner);
+		
+		if(list.isEmpty()) {
+			return null;
+		}else {
+			return (ArrayList<Owner>)list;
+		}
+		
+	}
+
+	public int insertNaverOwner(Owner owner) {
+		int result = sqlSession.insert("member.insertNaverOwner", owner);
+		return result;
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

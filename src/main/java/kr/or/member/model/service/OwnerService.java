@@ -1,5 +1,7 @@
 package kr.or.member.model.service;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,5 +28,18 @@ public class OwnerService {
 		}else {
 			return owner;
 		}
+	}
+
+	public int insertNaverOwner(Owner owner) {
+		ArrayList<Owner> list = dao.selectOwnerList(owner);
+		int result = 0;
+		
+		if(list == null) {
+			result = dao.insertNaverOwner(owner);
+			return result;
+		}else {
+			return 0;
+		}
+		
 	}
 }

@@ -18,6 +18,7 @@
   	values(member_seq.nextval, #{memberId}, #{memberPw}, #{memberName}, #{memberPhone}, 'o', #{memberEmail})
   </insert>
   
+  <!-- 이메일이 없다면 naver로 회원가입 -->
   <insert id="insertNamber" parameterType="member">
   	insert into member
   	values(member_seq.nextval, 'null', 'null', #{memberName}, #{memberPhone}, 'n', #{memberEmail})
@@ -53,6 +54,7 @@
   	values(owner_seq.nextval, #{ownerId}, #{ownerPw}, #{ownerName}, #{ownerPhone}, #{ownerEamil}, 'o', #{businessLicenseNo})
   </insert>
   
+  <!-- 이메일이 있는지 확인하는 함수 -->
   <select id="selectNaverMember" parameterType="string" resultType="member">
   	select
   		member_no as memberNo,
@@ -77,6 +79,26 @@
   	from member where member_email = #{memberEmail} and member_type = 'n'
   </select>
   
+  <select id="selectOwnerList" parameterType="owner" resultType="owner">
+  	select
+  		owner_no as ownerNo,
+  		owner_id as ownerId,
+  		owner_pw as ownerPw,
+  		owner_name as ownerName,
+  		onwer_phone as ownerPhone,
+  		owner_email as ownerEamil,
+  		owner_type as ownerType,
+  		Business_license_no as businessLicenseNo
+  	from owner
+  	<if test="ownerEamil != null">
+  		and owner_email = #{owner_email}
+  	</if>
+  </select>
+  
+  <insert id="insertNaverOwner" parameterType="owner">
+  	insert into owner
+  	values(owner_seq.nextval, 'null', 'null', #{ownerName}, #{ownerPhone}, #{ownerEamil}, 'n', null)
+  </insert>
   
 </mapper>
 

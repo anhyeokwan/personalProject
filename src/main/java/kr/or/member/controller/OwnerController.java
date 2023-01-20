@@ -52,6 +52,23 @@ public class OwnerController {
 			return "0";
 		}
 	}
+	
+	@RequestMapping(value = "/naverCallbackOwner.do")
+	public String naverCallback() {
+		return "member/ownerCallback";
+	}
+	
+	@RequestMapping(value = "/insertNaverOwner.do")
+	public String insertNaverOwner(Owner owner, Model model) {
+		int result = service.insertNaverOwner(owner);
+		
+		if(result == 0) {
+			model.addAttribute("msg", "이미 있는 이메일입니다.");
+			return "member/ownerJoinFrm";
+		}else {
+			return "common/license";
+		}
+	}
 }
 
 

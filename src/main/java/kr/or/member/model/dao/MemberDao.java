@@ -33,7 +33,8 @@ public class MemberDao {
 		Member m = sqlSession.selectOne("member.selectOneMember", member);
 		return m;
 	}
-
+	
+	// 해당 이메일이 있는지 조회하는 코드
 	public ArrayList<Member> selectNaverMember(String string) {
 		List m = sqlSession.selectList("member.selectNaverMember", string);
 		
@@ -43,7 +44,8 @@ public class MemberDao {
 			return (ArrayList<Member>)m;
 		}
 	}
-
+	
+	// 이메일이 없다면 insert를 하는 코드
 	public int insertNaver(Member member) {
 		int result = sqlSession.insert("member.insertNamber", member);
 		return result;
