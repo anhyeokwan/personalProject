@@ -66,7 +66,7 @@ public class OwnerController {
 			model.addAttribute("msg", "이미 있는 이메일입니다.");
 			return "member/ownerJoinFrm";
 		}else {
-			return "common/license";
+			return "redirect:/";
 		}
 	}
 }
