@@ -100,6 +100,28 @@
   	values(owner_seq.nextval, 'null', 'null', #{ownerName}, #{ownerPhone}, #{ownerEamil}, 'n', null)
   </insert>
   
+  <select id="selectOwnerOneMember" parameterType="owner" resultType="owner">
+  	select
+  		owner_no as ownerNo,
+  		owner_id as ownerId,
+  		owner_pw as ownerPw,
+  		owner_name as ownerName,
+  		onwer_phone as ownerPhone,
+  		owner_email as ownerEamil,
+  		owner_type as ownerType,
+  		Business_license_no as businessLicenseNo
+  	from owner
+  		
+  		<if test="ownerId != null">
+  			where owner_id = #{ownerId}
+  		</if>
+  		
+  		<if test="ownerPw != null">
+  			and owner_pw = #{ownerPw}
+  		</if>
+  		
+  </select>
+  
 </mapper>
 
 

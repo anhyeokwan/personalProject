@@ -45,6 +45,17 @@ public class OwnerDao {
 		int result = sqlSession.insert("member.insertNaverOwner", owner);
 		return result;
 	}
+
+	public Owner selectOwnerMember(Owner owner) {
+		Owner o = sqlSession.selectOne("member.selectOwnerOneMember", owner);
+		
+		if(o == null) {
+			return null;
+		}else {
+			return o;
+		}
+		
+	}
 }
 
 

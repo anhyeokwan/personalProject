@@ -61,6 +61,10 @@
                         <button class="w3-button w3-yellow" style="width: 500px;">로그인</button>
                     </form>
                 </div>
+                
+                <div>
+                	<p>${loginMsg }</p>
+                </div>
             </div>
             
             <hr>

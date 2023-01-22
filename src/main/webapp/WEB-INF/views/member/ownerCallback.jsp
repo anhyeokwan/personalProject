@@ -9,6 +9,7 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
+	<h1>확인</h1>
 	<form action="/insertNaverOwner.do" method="post" id="naverFrm">
 		<input type="hidden" name="ownerName">
 		<input type="hidden" name="ownerPhone">

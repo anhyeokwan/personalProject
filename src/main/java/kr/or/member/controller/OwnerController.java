@@ -1,5 +1,7 @@
 package kr.or.member.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -66,6 +68,19 @@ public class OwnerController {
 			model.addAttribute("msg", "이미 있는 이메일입니다.");
 			return "member/ownerJoinFrm";
 		}else {
+			return "redirect:/";
+		}
+	}
+	
+	@RequestMapping(value = "/ownerLogin.do")
+	public String selectOwnerMember(Owner owner, HttpSession session, Model model) {
+		Owner o = service.selectOwnerMember(owner);
+		
+		if(o == null) {
+			model.addAttribute("loginMsg", "아이디 또는 비밀번호를 확인해주세요.");
+			return "member/loginFrm";
+		}else {
+			session.setAttribute("owner", o);
 			return "redirect:/";
 		}
 	}

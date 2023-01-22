@@ -42,4 +42,40 @@ public class OwnerService {
 		}
 		
 	}
+	
+	public Owner selectOwnerMember(Owner owner) {
+		Owner o = dao.selectOwnerMember(owner);
+		
+		if(o == null) {
+			return null;
+		}else {
+			return o;
+		}
+		
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -25,17 +25,32 @@
               <li class="nav-item px-3 px-xl-4"><a class="nav-link fw-medium" aria-current="page" href="#service">Service</a></li>
               <li class="nav-item px-3 px-xl-4"><a class="nav-link fw-medium" aria-current="page" href="#destination">Destination</a></li>
               <li class="nav-item px-3 px-xl-4"><a class="nav-link fw-medium" aria-current="page" href="#booking">Booking</a></li>
-              <li class="nav-item px-3 px-xl-4"><a class="nav-link fw-medium" aria-current="page" href="#testimonial">Testimonial</a></li>
               
               <c:choose>
-              	<c:when test="${empty sessionScope.member }">
-              		<li class="nav-item px-3 px-xl-4"><a class="nav-link fw-medium" aria-current="page" href="/loginFrm.do">Login</a></li>
-              		<li class="nav-item px-3 px-xl-4"><a class="btn btn-outline-dark order-1 order-lg-0 fw-medium" href="/signFrm.do">Sign Up</a></li>
+              	<c:when test="${not empty sessionScope.owner }">
+              		<li class="nav-item px-3 px-xl-4"><a class="nav-link fw-medium" aria-current="page" href="#testimonial">팬션등록하기</a></li>
               	</c:when>
               	
               	<c:otherwise>
+              		<li class="nav-item px-3 px-xl-4"><a class="nav-link fw-medium" aria-current="page" href="#testimonial">팬션목록</a></li>
+              	</c:otherwise>
+              </c:choose>
+              
+              <c:choose>
+              	<c:when test="${not empty sessionScope.member }">
               		<li class="nav-item px-3 px-xl-4"><a class="nav-link fw-medium" aria-current="page" href="#">${sessionScope.member.memberName }</a></li>
               		<li class="nav-item px-3 px-xl-4"><a class="btn btn-outline-dark order-1 order-lg-0 fw-medium" href="/logout.do">Logout</a></li>
+              		
+              	</c:when>
+              	
+              	<c:when test="${not empty sessionScope.owner }">
+              		<li class="nav-item px-3 px-xl-4"><a class="nav-link fw-medium" aria-current="page" href="#">${sessionScope.owner.ownerName }</a></li>
+              		<li class="nav-item px-3 px-xl-4"><a class="btn btn-outline-dark order-1 order-lg-0 fw-medium" href="/logout.do">Logout</a></li>
+              	</c:when>
+              	
+              	<c:otherwise>
+              		<li class="nav-item px-3 px-xl-4"><a class="nav-link fw-medium" aria-current="page" href="/loginFrm.do">login</a></li>
+					<li class="nav-item px-3 px-xl-4"><a class="btn btn-outline-dark order-1 order-lg-0 fw-medium" href="/signFrm.do">Sign Up</a></li>
               	</c:otherwise>
               </c:choose>
               
