@@ -28,7 +28,7 @@
               
               <c:choose>
               	<c:when test="${not empty sessionScope.owner }">
-              		<li class="nav-item px-3 px-xl-4"><a class="nav-link fw-medium" aria-current="page" href="#testimonial">팬션등록하기</a></li>
+              		<li class="nav-item px-3 px-xl-4"><a class="nav-link fw-medium" aria-current="page" href="/goPensionRegistFrm.do">팬션등록하기</a></li>
               	</c:when>
               	
               	<c:otherwise>
