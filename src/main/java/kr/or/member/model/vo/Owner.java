@@ -14,6 +14,6 @@ public class Owner {
 	private String ownerName;
 	private String ownerPhone;
 	private String ownerEamil;
-	private char ownerType;
+	private String ownerType;
 	private String businessLicenseNo;
 }

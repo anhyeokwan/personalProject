@@ -1,14 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="/resources/css/pensionRegist.css">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"> <!-- w3c school -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" /> <!-- 구글폰트 -->
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script> <!-- 다음주소 api -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- jquery -->
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
@@ -21,14 +23,14 @@
             <form action="#" method="post" enctype="multipart/form-data">
                 <table id="pensionTbl">
                     <tr>
-                        <th style="text-align: center;">편션 사진</th>
+                        <th style="text-align: center;">편션 사진<span style="color:red;">*</span></th>
                     </tr>
 
                     <tr>
                         <td>
                             <div class="mainPhoto">
                                 <label class="file-label" for="chooseFile">메인사진 등록하기</label>
-                                <input class="file" id="chooseFile" type="file" onchange="imageUpload(this);">
+                                <input class="file" id="chooseFile" type="file" name="pensionImg" onchange="imageUpload(this);">
                             </div>
                         </td>
                     </tr>
@@ -46,7 +48,7 @@
                         <td colspan="2">
                             <div class="pensionInfo">
                                 <div class="up"></div>
-                                <label class="label" for="pensionName">팬션 명</label>
+                                <label class="label" for="pensionName">팬션 명<span style="color:red;">*</span></label>
                                 <input class="w3-input" type="text" id="pensionName" name="pensionName" style="width: 500px;">
                             </div>
                         </td>
@@ -56,8 +58,9 @@
                         <td colspan="2">
                             <div class="pensionInfo">
                                 <div class="up"></div>
-                                <label class="label" for="pensionAddr">팬션주소</label>
-                                <input class="w3-input" type="text" id="pensionAddr" name="pensionAddr"  style="width: 500px;">
+                                <label class="label" for="pensionAddr">팬션주소<span style="color:red;">*</span></label>
+                                <input class="w3-input" type="text" id="pensionAddr" name="pensionAddr" style="width: 400px;" readonly>
+                                <button class="w3-button w3-yellow" type="button" onclick="searchAddr(this);">주소검색</button>
                             </div>
                         </td>
                     </tr>
@@ -112,7 +115,7 @@
                                     </label>
 
                                     <p style="margin: 0 auto; font-size: 13px; font-weight: bold;">실내수영장</p>
-                                    <input type="checkbox" id="pool" name="pansionService" class="pensionService" value="pool">
+                                    <input type="checkbox" id="pool" name="pansionService" class="pensionService" value="poolIn">
                                 </div>
 
                                 <div style="text-align: center;">
@@ -123,7 +126,7 @@
                                     </label>
 
                                     <p style="margin: 0 auto; font-size: 13px; font-weight: bold;">계곡인접</p>
-                                    <input type="checkbox" id="pool" name="pansionService" class="pensionService" value="pool">
+                                    <input type="checkbox" id="pool" name="pansionService" class="pensionService" value="valley">
                                 </div>
 
                                 <div style="text-align: center;">
@@ -134,7 +137,7 @@
                                     </label>
 
                                     <p style="margin: 0 auto; font-size: 13px; font-weight: bold;">바다인접</p>
-                                    <input type="checkbox" id="pool" name="pansionService" class="pensionService" value="pool">
+                                    <input type="checkbox" id="pool" name="pansionService" class="pensionService" value="beach">
                                 </div>
 
                                 <div style="text-align: center;">
@@ -174,7 +177,7 @@
                     </tr>
 
                     <tr>
-                        <th style="text-align: center;">객실 등록</th>
+                        <th style="text-align: center;">객실 등록<span style="color:red;">*</span></th>
                     </tr>
 
                     <tr>
@@ -182,7 +185,7 @@
                             <div class="count-wrap">
                                 <div class="w3-third">
                                     <select class="w3-select" name="roomCnt" id="roomCnt">
-                                        <option value="" disabled selected>객실 개수</option>
+                                        <option value="0" disabled selected>객실 개수</option>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
                                         <option value="3">3</option>
@@ -193,21 +196,23 @@
                             </div>
                         </td>
                     </tr>
-
-                    <tr>
-                        <td>
-                            <div class="pensionInfo">
-                                <div class="up"></div>
-                                <label class="label" for="businessLicenseNo">사업자번호</label>
-                                <input class="w3-input" type="text" id="businessLicenseNo" name="businessLicenseNo">
-                            </div>
-                        </td>
-                    </tr>
+					
+                    <c:if test="${sessionScope.owner.ownerType eq 'o' }">
+                    	<tr>
+	                        <td>
+	                            <div class="pensionInfo">
+	                                <div class="up"></div>
+	                                <label class="label" for="businessLicenseNo">사업자번호<span style="color:red;">*</span></label>
+	                                <input class="w3-input" type="text" id="businessLicenseNo" name="businessLicenseNo" style="width: 500px;">
+	                            </div>
+	                        </td>
+	                    </tr>
+                    </c:if>
 
                     <tr>
                         <td>
                             <div class="buttonClass">
-                                <button class="w3-button w3-yellow" type="button">등록하기</button>
+                                <button class="w3-button w3-yellow" type="button" id="submitBtn">등록하기</button>
                                 <button class="w3-button w3-light-gray" type="button" onclick="goMain();">메인으로</button>
                             </div>
                         </td>
@@ -220,14 +225,42 @@
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 	
 	<script type="text/javascript">
+	
+		$(".pensionService").prev().prev().on("click", function(){
+			const index = $(".pensionService").prev().prev().index(this);
+			//console.log($(".pensionService").eq(index).val());
+			if($("[name=pensionService]").eq(index).prop("checked", true)){
+				console.log($(".pensionService").eq(index).val());
+				$(this).eq(index).css("color", "#FBC252");
+				$(this).next().eq(index).css("color", "#FBC252");
+			}
+		})
+		
+		function searchAddr(obj){
+			const text = $("label[for=pensionAddr]").text();
+			$(obj).prev().prev().prev().text(text);
+			$(obj).prev().prev().hide();
+			new daum.Postcode({
+		        oncomplete: function(data) {
+		            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
+		            // 예제를 참고하여 다양한 활용법을 확인해 보세요.
+		            $("input[name=pensionAddr]").val(data.address);
+		            $("input[name=pensionAddr]").focus();
+		        }
+		    }).open();
+		}
+	
 		$(".w3-input").on("click", function(){
 		    const index = $(".w3-input").index(this);
-		    const text = $(".label").eq(index).text();
-		    $(".up").eq(index).text(text);
-		    $(".up").eq(index).animate({
-		        "font-size" : "16px"
-		    }, 10*100);
-		    $(".label").eq(index).hide();
+		    if(index != 1){
+		    	const text = $(".label").eq(index).text();
+			    $(".up").eq(index).text(text);
+			    $(".up").eq(index).animate({
+			        "font-size" : "16px"
+			    }, 10*100);
+			    $(".label").eq(index).hide();
+		    }
+		    
 		});
 	
 		// $("#roomCntBtn").on("click", function(){
@@ -239,10 +272,13 @@
 	//	         const tr = $("<tr></tr>");
 	//	     }
 		// });
-	
+		
+		let fileLength = 0;
 		function imageUpload(obj){
 		    console.log(obj.files);
 		    if(obj.files.length != 0 || obj.files[0] != 0){
+		    	fileLength = obj.files.length;
+		    	console.log(fileLength);
 		        $("#imgTr").slideDown();
 		        const reader = new FileReader(); // 파일의 정보를 읽어옴
 		        reader.readAsDataURL(obj.files[0]); // 
@@ -259,6 +295,56 @@
 		function goMain(){
 		    location.href = "/";
 		}
+		
+		$("#submitBtn").on("click", function(){
+			if(fileLength == 0){
+				alert("사진을 등록하세요..!");
+				$(this).attr("type", "button");
+			}else if($("input[name=pensionName]").val() == ""){
+				alert("팬션이름을 입력하세요..!");
+				$(this).attr("type", "button");
+			}else if($("input[name=pensionAddr]").val() == ""){
+				alert("주소를 입력하세요..!");
+				$(this).attr("type", "button");
+			}else if(Number($("[name=roomCnt]").val()) == 0){
+				alert("방의 개수를 입력하세요..!");
+				$(this).attr("type", "button");
+			}else if($("#businessLicenseNo").val() == ""){
+				alert("사업자번호를 입력하세요..!");
+				$(this).attr("type", "button");
+			}else{
+				console.log(1);
+				$(this).attr("type", "button");
+			}
+		})
 	</script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
