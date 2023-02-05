@@ -21,6 +21,7 @@
 
         <div class="pention-content">
             <form action="#" method="post" enctype="multipart/form-data">
+            	<input type="hidden" name="ownerNo" value="${sessionScope.owner.ownerNo }">
                 <table id="pensionTbl">
                     <tr>
                         <th style="text-align: center;">편션 사진<span style="color:red;">*</span></th>
@@ -216,7 +217,7 @@
                                 <button class="w3-button w3-light-gray" type="button" onclick="goMain();">메인으로</button>
                             </div>
                         </td>
-                    </tr>
+                    </tr>       
                 </table>
             </form>
         </div>
