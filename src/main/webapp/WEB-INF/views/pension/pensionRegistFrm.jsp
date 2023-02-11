@@ -120,25 +120,25 @@
                                 </div>
 
                                 <div style="text-align: center;">
-                                    <label for="pool">
+                                    <label for="valley">
                                         <span class="material-symbols-outlined" style="font-size: 40px; text-align: center;">
                                             water
                                             </span>
                                     </label>
 
                                     <p style="margin: 0 auto; font-size: 13px; font-weight: bold;">계곡인접</p>
-                                    <input type="checkbox" id="pool" name="pansionService" class="pensionService" value="valley">
+                                    <input type="checkbox" id="valley" name="pansionService" class="pensionService" value="valley">
                                 </div>
 
                                 <div style="text-align: center;">
-                                    <label for="pool">
+                                    <label for="beach">
                                         <span class="material-symbols-outlined" style="font-size: 40px; text-align: center;">
                                             sailing
                                             </span>
                                     </label>
 
                                     <p style="margin: 0 auto; font-size: 13px; font-weight: bold;">바다인접</p>
-                                    <input type="checkbox" id="pool" name="pansionService" class="pensionService" value="beach">
+                                    <input type="checkbox" id="beach" name="pansionService" class="pensionService" value="beach">
                                 </div>
 
                                 <div style="text-align: center;">
@@ -230,10 +230,18 @@
 		$(".pensionService").prev().prev().on("click", function(){
 			const index = $(".pensionService").prev().prev().index(this);
 			//console.log($(".pensionService").eq(index).val());
-			if($("[name=pensionService]").eq(index).prop("checked", true)){
+			if($("[name=pensionService]").eq(index).is(':checked')){
+				$("[name=pensionService]").eq(index).prop("checked", true);
 				console.log($(".pensionService").eq(index).val());
+				console.log("1");
 				$(this).eq(index).css("color", "#FBC252");
 				$(this).next().eq(index).css("color", "#FBC252");
+			}else{
+				$("[name=pensionService]").eq(index).prop("checked", false);
+				$(this).eq(index).css("color", "#000000");
+				$(this).next().eq(index).css("color", "#000000");
+				console.log($(".pensionService").eq(index).val());
+				console.log(0);
 			}
 		})
 		
