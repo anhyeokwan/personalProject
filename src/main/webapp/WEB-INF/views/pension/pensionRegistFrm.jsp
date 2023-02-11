@@ -325,7 +325,8 @@
 				$(this).attr("type", "button");
 			}else{
 				console.log(1);
-				$(this).attr("type", "button");
+				Number($("[name=roomCnt]").val());
+				$(this).attr("type", "submit");
 			}
 		})
 	</script>

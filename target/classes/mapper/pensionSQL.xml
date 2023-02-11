@@ -3,6 +3,6 @@
 <mapper namespace="pension">
 	<insert id="insertPension" parameterType="pension">
 		insert into pension_tbl
-		values(pension_seq.nextval, #{ownerNo}, #{pensionName}, #{pensionAddr}. #{pensionSerivce}, #{roomCnt}, #{pensionImg}, #{businessLicenseNo})
+		values(pension_seq.nextval, #{ownerNo}, #{pensionName}, #{pensionAddr}, #{pensionSerivce}, #{roomCnt}, #{pensionImg}, #{businessLicenseNo})
 	</insert>
 </mapper>

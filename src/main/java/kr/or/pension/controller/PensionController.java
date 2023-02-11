@@ -73,7 +73,7 @@ public class PensionController {
 		pension.setPensionImg(pf.getFilepath());
 		int result = service.insertPension(pension);
 		
-		return "/";
+		return "redirect:/";
 	}
 }
 

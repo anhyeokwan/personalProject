@@ -2,6 +2,9 @@ package kr.or.common;
 
 import java.io.File;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class Filename {
 	
 	public String fileRename(String filepath, String filename) {
