@@ -20,7 +20,7 @@
         </div>
 
         <div class="pention-content">
-            <form action="#" method="post" enctype="multipart/form-data">
+            <form action="/insertPension.do" method="post" enctype="multipart/form-data">
             	<input type="hidden" name="ownerNo" value="${sessionScope.owner.ownerNo }">
                 <table id="pensionTbl">
                     <tr>
@@ -230,18 +230,20 @@
 		$(".pensionService").prev().prev().on("click", function(){
 			const index = $(".pensionService").prev().prev().index(this);
 			//console.log($(".pensionService").eq(index).val());
-			if($("[name=pensionService]").eq(index).is(':checked')){
-				$("[name=pensionService]").eq(index).prop("checked", true);
-				console.log($(".pensionService").eq(index).val());
-				console.log("1");
-				$(this).eq(index).css("color", "#FBC252");
-				$(this).next().eq(index).css("color", "#FBC252");
-			}else{
-				$("[name=pensionService]").eq(index).prop("checked", false);
+			if($(".pensionService").eq(index).is(":checked") == false){
 				$(this).eq(index).css("color", "#000000");
 				$(this).next().eq(index).css("color", "#000000");
 				console.log($(".pensionService").eq(index).val());
-				console.log(0);
+				console.log($(".pensionService").eq(index).is(":checked"));
+				console.log("클린된 인덱스 : " + index);
+			}else{
+				console.log($(".pensionService").eq(index).val());
+				console.log($(".pensionService").eq(index).is(":checked"));
+				console.log("클린된 인덱스 : " + index);
+				
+				$(this).eq(index).css("color", "#FBC252");
+				$(this).next().eq(index).css("color", "#FBC252");
+				
 			}
 		})
 		
