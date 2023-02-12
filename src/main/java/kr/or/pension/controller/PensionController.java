@@ -4,18 +4,22 @@ import java.io.BufferedOutputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import kr.or.common.Filename;
 import kr.or.pension.model.service.PensionService;
 import kr.or.pension.model.vo.Pension;
 import kr.or.pension.model.vo.PensionFile;
+import kr.or.pension.model.vo.Practice;
 
 @Controller
 public class PensionController {
@@ -30,7 +34,8 @@ public class PensionController {
 		return "pension/pensionRegistFrm";
 	}
 	
-	@RequestMapping(value = "/insertPension.do")
+	@ResponseBody
+	@RequestMapping(value = "/insertPension.do",  produces = "application/json;charset=utf-8")
 	public String insertPension(Pension pension, MultipartFile[] pensionImg, HttpServletRequest request) {
 		
 		PensionFile pf = null;
@@ -73,7 +78,31 @@ public class PensionController {
 		pension.setPensionImg(pf.getFilepath());
 		int result = service.insertPension(pension);
 		
+		if(result > 0) {
+			return "1";
+		}else {
+			return "0";
+		}
+	}
+	
+	@RequestMapping(value = "/practice.do")
+	public String insertPracticeFrm() {
+		return "pension/insertPracticeFrm";
+	}
+	
+	@RequestMapping(value = "/insertPractice.do")
+	public String insertPractice(Practice practice) {
+		int result = service.insertPractice(practice);
+		
 		return "redirect:/";
+	}
+	
+	@RequestMapping(value = "/practiceList.do")
+	public String practiceList(int reqPage, Model model) {
+		HashMap<String, Object> map = service.selectAllPractice(reqPage);
+		
+		model.addAttribute("list", map.get("list"));
+		return "pension/practiceList";
 	}
 }
 

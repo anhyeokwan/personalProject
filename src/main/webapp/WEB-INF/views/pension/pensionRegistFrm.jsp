@@ -20,7 +20,7 @@
         </div>
 
         <div class="pention-content">
-            <form action="/insertPension.do" method="post" enctype="multipart/form-data">
+            
             	<input type="hidden" name="ownerNo" value="${sessionScope.owner.ownerNo }">
                 <table id="pensionTbl">
                     <tr>
@@ -177,38 +177,24 @@
                         </td>
                     </tr>
 
-                    <tr>
-                        <th style="text-align: center;">객실 등록<span style="color:red;">*</span></th>
-                    </tr>
-
-                    <tr>
-                        <td>
-                            <div class="count-wrap">
-                                <div class="w3-third">
-                                    <select class="w3-select" name="roomCnt" id="roomCnt">
-                                        <option value="0" disabled selected>객실 개수</option>
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">4</option>
-                                        <option value="5">5</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-					
-                    <c:if test="${sessionScope.owner.ownerType eq 'o' }">
-                    	<tr>
-	                        <td>
-	                            <div class="pensionInfo">
-	                                <div class="up"></div>
-	                                <label class="label" for="businessLicenseNo">사업자번호<span style="color:red;">*</span></label>
-	                                <input class="w3-input" type="text" id="businessLicenseNo" name="businessLicenseNo" style="width: 500px;">
-	                            </div>
-	                        </td>
-	                    </tr>
-                    </c:if>
+					<c:choose>
+						<c:when test="${sessionScope.owner.ownerType != 'o' }">
+	                    	<tr>
+		                        <td>
+		                            <div class="pensionInfo">
+		                                <div class="up"></div>
+		                                <label class="label" for="businessLicenseNo">사업자번호<span style="color:red;">*</span></label>
+		                                <input class="w3-input" type="text" id="businessLicenseNo" name="businessLicenseNo" style="width: 500px;">
+		                            </div>
+		                        </td>
+		                    </tr>
+	                    </c:when>
+	                    
+	                    <c:otherwise>
+	                    	<input class="w3-input" type="hidden" id="businessLicenseNo" name="businessLicenseNo" style="width: 500px;" value="${sessionScope.owner.businessLicenseNo }">
+	                    </c:otherwise>
+					</c:choose>
+                    
 
                     <tr>
                         <td>
@@ -219,14 +205,14 @@
                         </td>
                     </tr>       
                 </table>
-            </form>
         </div>
     </div>
     
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 	
 	<script type="text/javascript">
-	
+		
+		// 클릭하면 폰트색상 바뀌는 코드
 		$(".pensionService").prev().prev().on("click", function(){
 			const index = $(".pensionService").prev().prev().index(this);
 			//console.log($(".pensionService").eq(index).val());
@@ -247,6 +233,7 @@
 			}
 		})
 		
+		// 다음주소 api
 		function searchAddr(obj){
 			const text = $("label[for=pensionAddr]").text();
 			$(obj).prev().prev().prev().text(text);
@@ -260,7 +247,8 @@
 		        }
 		    }).open();
 		}
-	
+		
+		// 해당 input을 누르면 글씨가 위로 올라가는 코드
 		$(".w3-input").on("click", function(){
 		    const index = $(".w3-input").index(this);
 		    if(index != 1){
@@ -317,16 +305,56 @@
 			}else if($("input[name=pensionAddr]").val() == ""){
 				alert("주소를 입력하세요..!");
 				$(this).attr("type", "button");
-			}else if(Number($("[name=roomCnt]").val()) == 0){
-				alert("방의 개수를 입력하세요..!");
-				$(this).attr("type", "button");
 			}else if($("#businessLicenseNo").val() == ""){
 				alert("사업자번호를 입력하세요..!");
 				$(this).attr("type", "button");
 			}else{
 				console.log(1);
-				Number($("[name=roomCnt]").val());
-				$(this).attr("type", "submit");
+				
+				let service = "";
+				
+				// ajax로 처리할 formdata
+				const formData = new FormData();
+				const pensionName = $("[name=pensionName]").val();
+				const ownerNo = $("[name=ownerNo]").val();
+				const pensionSAddr = $("[name=pensionAddr]").val();
+				$("[name=pansionService]:checked").each(function(index){
+					if(index != 0){
+						service += ",";
+					}
+					service += $(this).val(); // 체크된 체크밗의 값
+				});
+				const businessLicenseNo = $("[name=businessLicenseNo]").val();
+				
+				const files = $("[name=pensionImg]")[0].files;
+				
+				console.log(pensionName);
+				console.log(ownerNo);
+				console.log(pensionSAddr);
+				console.log(service);
+				console.log(businessLicenseNo);
+				console.log(files);
+				
+				formData.append("pensionImg", files[0]);
+				formData.append("ownerNo", ownerNo);
+				formData.append("pensionName", pensionName);
+				formData.append("pensionAddr", pensionSAddr);
+				formData.append("pansionService", service);
+				formData.append("businessLicenseNo", businessLicenseNo);
+				
+				$.ajax({
+					url : "/insertPension.do",
+					type : "post",
+					processData : false,
+					contentType : false,
+					enctype : 'multipart/form-data',
+					data : formData,
+					success : function(data){
+						console.log("insert 성공 : " + data);
+					}
+				})
+				
+				$(this).attr("type", "button");
 			}
 		})
 	</script>

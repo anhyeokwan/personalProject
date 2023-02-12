@@ -3,6 +3,23 @@
 <mapper namespace="pension">
 	<insert id="insertPension" parameterType="pension">
 		insert into pension_tbl
-		values(pension_seq.nextval, #{ownerNo}, #{pensionName}, #{pensionAddr}, #{pensionSerivce}, #{roomCnt}, #{pensionImg}, #{businessLicenseNo})
+		values(pension_seq.nextval, #{ownerNo}, #{pensionName}, #{pensionAddr}, #{pansionService}, #{pensionImg}, #{businessLicenseNo})
 	</insert>
+	
+	<insert id="insertPractice" parameterType="practice">
+		insert into practice_tbl
+		values(practice_seq.nextval, #{practiceFav}, #{practiceFood}, #{practiceProgram}, #{parcticeTalent})
+	</insert>
+	
+	<select id="selectAllPractice" resultType="practice">
+		select rownum as rnum, p.*
+			from
+			(select
+				practice_no as practiceNo,
+				practice_fav as practiceFav,
+				practice_food as practiceFood,
+				practice_program as practiceProgram,
+				practice_talent as parcticeTalent
+			from practice_tbl) p order by 1
+	</select>
 </mapper>

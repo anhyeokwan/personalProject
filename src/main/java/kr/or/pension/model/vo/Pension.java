@@ -12,8 +12,7 @@ public class Pension {
 	private int ownerNo;
 	private String pensionName;
 	private String pensionAddr;
-	private String pensionSerivce;
-	private int roomCnt;
+	private String pansionService;
 	private String pensionImg;
 	private String businessLicenseNo;
 }

@@ -10,6 +10,7 @@
 		<typeAlias type="kr.or.member.model.vo.Owner" alias="owner"/>
 		<typeAlias type="kr.or.pension.model.vo.Pension" alias="pension"/>
 		<typeAlias type="kr.or.pension.model.vo.PensionFile" alias="pensionFile"/>
+		<typeAlias type="kr.or.pension.model.vo.Practice" alias="practice"/>
 	</typeAliases>
 	
 </configuration>
