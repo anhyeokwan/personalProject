@@ -10,7 +10,7 @@
 <body>
 	<h1>practice 목록이다!</h1>
 	<hr>
-	
+	<p>깃허브 잔디심는 용</p>
 	<table border="1">
 		<tr>
 			<th>번호</th>

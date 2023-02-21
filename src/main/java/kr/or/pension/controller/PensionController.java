@@ -35,7 +35,7 @@ public class PensionController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value = "/insertPension.do",  produces = "application/json;charset=utf-8")
+	@RequestMapping(value = "/insertPension.do", produces = "application/json;charset=utf-8")
 	public String insertPension(Pension pension, MultipartFile[] pensionImg, HttpServletRequest request) {
 		
 		PensionFile pf = null;
