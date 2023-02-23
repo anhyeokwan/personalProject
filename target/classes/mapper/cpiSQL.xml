@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cpiMapper">
+
+	<select id="selectOneJiacen" parameterType="map" resultType="cpi">
+		SELECT
+		    A.STATS_YR
+		    , A.SRV_INST_ID
+		    , NVL(MAX(A.ONLYJIACEN1), 0) AS jiacen1
+		    , NVL(MAX(A.ONLYJIACEN2), 0) AS jiacen2
+		    , NVL(MAX(A.ONLYJIACEN3), 0) AS jiacen3
+		    , NVL(MAX(A.ONLYJIACEN4), 0) AS jiacen4
+		    , NVL(MAX(A.ONLYJIACEN5), 0) AS jiacen5
+		  FROM
+		(SELECT
+		    STATS_YR
+		    , SRV_INST_ID
+		    , CASE WHEN SRV_CD = '01' THEN SRC_NT END AS ONLYJIACEN1
+		    , CASE WHEN SRV_CD = '02' THEN SRC_NT END AS ONLYJIACEN2
+		    , CASE WHEN SRV_CD = '03' THEN SRC_NT END AS ONLYJIACEN3
+		    , CASE WHEN SRV_CD = '04' THEN SRC_NT END AS ONLYJIACEN4
+		    , CASE WHEN SRV_CD = '05' THEN SRC_NT END AS ONLYJIACEN5
+		  FROM CPI_TBL) A
+		 GROUP BY A.STATS_YR, A.SRV_INST_ID
+		 HAVING A.STATS_YR = #{statsYr} AND SRV_INST_ID = #{srvInstId}
+	</select>
+
+</mapper>

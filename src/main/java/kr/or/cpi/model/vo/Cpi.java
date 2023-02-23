@@ -10,6 +10,9 @@ import lombok.NoArgsConstructor;
 public class Cpi {
 	private String statsYr;
 	private String srvInstId;
-	private String srvCd;
-	private int srcNt;
+	private int jiacen1;
+	private int jiacen2;
+	private int jiacen3;
+	private int jiacen4;
+	private int jiacen5;
 }
