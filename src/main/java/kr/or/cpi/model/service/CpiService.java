@@ -39,27 +39,27 @@ public class CpiService {
 		map.put("srvInstId", params.get("srvInstId"));
 		System.out.println("지아센 1 : " + params.get("jiacen1"));
 		for(int i = 0; i < list.size(); i++) {
-			if(list.get(i) == "01" && (int)params.get("jiacen1") != 0) {
+			if(list.get(i) == "01" || (int)params.get("jiacen1") != 0) {
 				map.put("code", list.get(i));
 				map.put("score", params.get("jiacen1"));
 			}
 			
-			if(list.get(i) == "02" && (int)params.get("jiacen2") != 0) {
+			if(list.get(i) == "02" || (int)params.get("jiacen2") != 0) {
 				map.put("code", list.get(i));
 				map.put("score", params.get("jiacen2"));
 			}
 			
-			if(list.get(i) == "03" && (int)params.get("jiacen3") != 0) {
+			if(list.get(i) == "03" || (int)params.get("jiacen3") != 0) {
 				map.put("code", list.get(i));
 				map.put("score", params.get("jiacen3"));
 			}
 			
-			if(list.get(i) == "04" && (int)params.get("jiacen4") != 0) {
+			if(list.get(i) == "04" || (int)params.get("jiacen4") != 0) {
 				map.put("code", list.get(i));
 				map.put("score", params.get("jiacen4"));
 			}
 			
-			if(list.get(i) == "05" && (int)params.get("jiacen5") != 0) {
+			if(list.get(i) == "05" || (int)params.get("jiacen5") != 0) {
 				map.put("code", list.get(i));
 				map.put("score", params.get("jiacen5"));
 			}
