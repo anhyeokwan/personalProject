@@ -54,9 +54,9 @@
               	</c:otherwise>
               </c:choose>
               
-              <li class="nav-item dropdown px-3 px-lg-0"> <a class="d-inline-block ps-0 py-2 pe-3 text-decoration-none dropdown-toggle fw-medium" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">EN</a>
+              <li class="nav-item dropdown px-3 px-lg-0"> <a class="d-inline-block ps-0 py-2 pe-3 text-decoration-none dropdown-toggle fw-medium" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">연습</a>
                 <ul class="dropdown-menu dropdown-menu-end border-0 shadow-lg" style="border-radius:0.3rem;" aria-labelledby="navbarDropdown">
-                  <li><a class="dropdown-item" href="#!">EN</a></li>
+                  <li><a class="dropdown-item" href="/adminPage.do?reqPage=1">관리자</a></li>
                   <li><a class="dropdown-item" href="#!">BN</a></li>
                 </ul>
               </li>
