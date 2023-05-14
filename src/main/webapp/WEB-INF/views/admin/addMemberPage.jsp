@@ -16,11 +16,12 @@
 			<tr>
 				<th>대분류</th>
 				<th>서비스</th>
+				<th>담당자</th>
 				<th>서비스아이디</th>
 				<th>서비스비밀번호</th>
 				<th>사용여부</th>
 				<td>
-					<button type="button" class="addBtn">추가</button>
+					<button type="button" class="addBtn" style="width: 100%;">추가</button>
 				</td>
 			</tr>
 		
@@ -42,6 +43,11 @@
 						<option value="004">알림톡</option>
 						<option value="005">이메일</option>
 					</select>
+				</td>
+				
+				<td>
+					<input type="text" name="icName" value="담당자" class="icName">
+					<button type="button" class="addCharge" onclick="addCharge(this);">담당자 추가</button>
 				</td>
 				
 				<td>
@@ -130,6 +136,12 @@
 									+ "</select>"
 								+ "</td>";
 			
+			const icName = "<td>"
+							+ "<input type='text' name='icName' value='담당자' class='icName'>"
+							+ "<button type='button' class='addCharge' onclick='addCharge(this);'>담당자 추가</button>"
+						    + "</td>"			
+									
+			
 			const svcId = "<td>"
 							+ "<input type='text' name='svcId' class='svcId' placeholder='서비스ID'>"
 							+ "</td>";
@@ -149,7 +161,7 @@
 			const deleteBtn = "<td>"
 							+ "<button type='button' class='deleteBtn' onclick='deleteBtn(this)'>삭제</button>"
 							+ "</td>";
-			contentTr.append(lCategory).append(sCategory).append(svcId).append(svcPw).append(userChk).append(deleteBtn);
+			contentTr.append(lCategory).append(sCategory).append(icName).append(svcId).append(svcPw).append(userChk).append(deleteBtn);
 			
 			tbody.append(contentTr);
 			
@@ -158,6 +170,10 @@
 				$(".contentTr").last().remove();
 			}
 		});
+		
+		function addCharge(obj) {
+			console.log("addCharge 확인");
+		}
 		
 		function deleteBtn(obj){
 			$(obj).parent().parent().remove();
