@@ -14,7 +14,7 @@ public class Service {
 	private String svcId;
 	private String svcPw;
 	private String subsUser;
-	private char status;
+	private String status;
 	private String subsDate;
 	private String regDate;
 	private String modDate;

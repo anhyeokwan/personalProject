@@ -1,14 +1,10 @@
 package kr.or.admin.model.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import kr.or.admin.model.vo.Company;
+import kr.or.admin.model.vo.Service;
 
-import kr.or.admin.model.dao.AdminDao;
+public interface AdminService {
+	
+	public int insertCompany(Service service);
 
-@Service
-public class AdminService {
-	
-	@Autowired
-	private AdminDao dao;
-	
 }
